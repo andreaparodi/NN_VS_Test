@@ -30,7 +30,7 @@ void main()
 	srand(time(NULL));
 
 	//inizializzazione ai valori standard
-	setupNodes(inputNodes, hiddenNodes, outputNodes);
+	randomSetupNodes(inputNodes, hiddenNodes, outputNodes);
 
 	//inizializzazione dei nodi, portare a funzione possibilmente
 	/*
@@ -94,10 +94,11 @@ void main()
 		inputNodes[i].weights[7] = 0;	
 	}
 	*/
-	inputNodes[5].value = 0;
+	//inputNodes[5].value = 0;
 	//inputNodes[1].weights[0] = 0;
 	//inputNodes[3].weights[0] = -10;
 
+	/*
 	//int placeholder2 = 0;
 	feedForward(inputNodes, hiddenNodes, outputNodes);
 	//int placeHolder = 0;
@@ -107,12 +108,14 @@ void main()
 
 	int notTrainedTestLabel = calculateOutput(inputNodes, hiddenNodes, outputNodes, test);
 	int placeholder3 = 0;
-	
-	train(inputNodes, hiddenNodes, outputNodes, test, testLabel);
-	
+	for (int i = 0; i < 7; i++)
+	{
+		train(inputNodes, hiddenNodes, outputNodes, test, testLabel);
+	}
 	int trainedTestLabel = calculateOutput(inputNodes, hiddenNodes, outputNodes, test);
 	int end = 1;
-	/*
+	*/
+	
 	float trainingSetFeatures[nOfSamples][nOfFeatures] =
 	{
 		{ 0.713942,        	0.556642,		1.818262,		-3.407425,		0.015400,        143.818665,      2.918958,        2.650967,        6.445556,        2.918958,        2.650967,        6.445556,        -0.327651,       -0.417206,       0.052923 },
@@ -239,14 +242,83 @@ void main()
 		}
 	}
 
-	float test[nOfFeatures] = {0.76, 0.20, 0.0, 0.8, -0.3, 0.19, 0.32, -0.7, -0.9, 0.43, -0.12, 0.10, 0.15, 0.2, -0.19};
-	int testLabel = 0;
-
-	int notTrainedTestLabel = calculateOutput(inputNodes, hiddenNodes, outputNodes, test);
-	for (int i = 0; i < 20; i++)
+	int index[10] = {0};
+	for(int i=0;i<5;i++)
 	{
-		train(inputNodes, hiddenNodes, outputNodes, test, testLabel);
+		int val = rand() % 50;
+		index[i] = val;
+		val = (rand() % 50) + 50;
+		index[i + 5] = val;
 	}
-	int trainedTestLabel = calculateOutput(inputNodes, hiddenNodes, outputNodes, test);
+	/*
+	int label1_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[5]);
+	int label2_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[0]);
+	int label3_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[32]);
+	int label4_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[12]);
+	int label5_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[40]);
+
+	int label6_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[78]);
+	int label7_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[85]);
+	int label8_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[67]);
+	int label9_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[59]);
+	int label10_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[91]);
 	*/
+	int label1_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[0]]);
+	int label2_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[1]]);
+	int label3_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[2]]);
+	int label4_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[3]]);
+	int label5_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[4]]);
+
+	int label6_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[5]]);
+	int label7_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[6]]);
+	int label8_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[7]]);
+	int label9_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[8]]);
+	int label10_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[9]]);
+
+	int placeh = 0;
+
+	for (int cycles = 0; cycles < 500; cycles++)
+	{
+		int index = rand() % 50;
+		for (int repeat = 0; repeat < max_rep; repeat++)
+		{
+			//trainingSetFeatures[nOfSamples][nOfFeatures] / trainingLabels[nOfSamples]
+			train(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index], trainingLabels[index]);
+		}
+		index = (rand() % 50) + 50;
+		for (int repeat = 0; repeat < max_rep; repeat++)
+		{
+			//trainingSetFeatures[nOfSamples][nOfFeatures] / trainingLabels[nOfSamples]
+			train(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index], trainingLabels[index]);
+		}
+	}
+	int placeholder1 = 0;
+	//test su dati veri (del training set)
+	//i primi 5 dovrebbero restituire etichetta 1
+	//i secondi 5 etichetta 0
+	/*
+	int label1 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[5]);
+	int label2 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[0]);
+	int label3 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[32]);
+	int label4 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[12]);
+	int label5 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[40]);
+
+	int label6 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[78]);
+	int label7 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[85]);
+	int label8 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[67]);
+	int label9 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[59]);
+	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[91]);
+	*/
+	int label1 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[0]]);
+	int label2 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[1]]);
+	int label3 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[2]]);
+	int label4 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[3]]);
+	int label5 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[4]]);
+
+	int label6 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[5]]);
+	int label7 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[6]]);
+	int label8 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[7]]);
+	int label9 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[8]]);
+	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[9]]);
+	int end1 = 0;
 }

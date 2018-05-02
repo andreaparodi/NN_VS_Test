@@ -101,7 +101,7 @@ void feedForward(InputNode in[], HiddenNode hn[], OutputNode on[])
 	}
 	*/
 }
-void setupNodes(InputNode in[], HiddenNode hn[], OutputNode on[]) 
+void randomSetupNodes(InputNode in[], HiddenNode hn[], OutputNode on[]) 
 {
 	for (int i = 0; i < nOfFeatures; i++)
 	{
@@ -187,6 +187,7 @@ int calculateOutput(InputNode in[], HiddenNode hn[], OutputNode on[], float inpu
 		in[i].value = inputFeatures[i];
 	}
 	feedForward(in, hn, on);
+	float result = on[0].value;
 	if (on[0].value >= 0.5)
 	{
 		return 1;
@@ -205,7 +206,9 @@ void train(InputNode in[], HiddenNode hn[], OutputNode on[], float inputFeatures
 	//giusto per verifica, eliminabili
 	float bias_hid[nOfHiddenNodes] = { 0 };
 	float bias_o[nOfOutputNodes] = {0};
+	
 	float weight_adj_hid[nOfHiddenNodes] = { 0 };
+
 
 	calculateOutput(in, hn, on, inputFeatures);
 
@@ -230,24 +233,31 @@ void train(InputNode in[], HiddenNode hn[], OutputNode on[], float inputFeatures
 		//giusto per verifica
 		bias_hid[h] = learningRate*delta_h[h];
 		hn[h].bias = hn[h].bias + learningRate*delta_h[h];
+		//soluzione temporanea per tenere la modifica dei pesi, sarebbe da cambiare con una matrice per verificare gli aggiustamenti
+		float temp = 0;
 		for (int i = 0; i < nOfFeatures; i++)
 		{
-			
+			temp = learningRate*in[i].value*delta_h[h];
+			in[i].weights[h] = in[i].weights[h] + temp;
+			temp = 0;
 		}
+		
 	}
 	int placeholderz = 0;
-	/*
-	for( j = 1 ; j <= NumHidden ; j++ ) {       
-
-	DeltaWeightIH[0][j] = eta * DeltaH[j] + alpha * DeltaWeightIH[0][j];
-	WeightIH[0][j] += DeltaWeightIH[0][j];
-	for (i = 1; i <= NumInput; i++) {
-		DeltaWeightIH[i][j] = eta * Input[p][i] * DeltaH[j] + alpha * DeltaWeightIH[i][j];
-		WeightIH[i][j] += DeltaWeightIH[i][j];
+	for (int o = 0; o < nOfOutputNodes; o++)
+	{
+		bias_o[o] = learningRate*delta_o[o];
+		on[o].bias = learningRate*delta_o[o];
+		//soluzione temporanea per tenere la modifica dei pesi, sarebbe da cambiare con una matrice (vettore se nOutput=1) per verificare gli aggiustamenti
+		float temp = 0;
+		for (int h = 0; h < nOfHiddenNodes; h++)
+		{
+			temp = learningRate*hn[h].value*delta_o[o];
+			hn[h].weights[o] = hn[h].weights[o] + temp;
+			temp = 0;
+		}
 	}
-
-}
-	*/
+	int end = 1;
 }
 
 float generateRandomWeights() 
