@@ -1,6 +1,7 @@
 #pragma once
 #include <math.h>
 #include <time.h>
+#include <stdio.h>
 #include "node.h"
 
 //valore di inizializzazione per i pesi
@@ -13,4 +14,6 @@
 #define nOfSamples 100
 //numero di cicli di training sullo stesso esempio
 #define max_rep 1
+
+
 void main();

@@ -241,6 +241,27 @@ void main()
 			trainingSetFeatures[sample][i] = trainingSetFeatures[sample][i] / max_values[i];
 		}
 	}
+	//in preparazione alla eliminazione del training set cablato
+	/*
+	float max_values[nOfFeatures] =
+	{
+		3.81052709,
+		2.72039604,
+		13.8442125,
+		46.0152054,
+		46.9328918,
+		144.026596,
+		16.1878510,
+		10.9836969,
+		22.7396450,
+		16.1878510,
+		10.9836969,
+		22.7396450,
+		1.00000000,
+		1.00000000,
+		1.00000000 
+	};
+	*/
 
 	int index[10] = {0};
 	for(int i=0;i<5;i++)
@@ -263,6 +284,7 @@ void main()
 	int label9_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[59]);
 	int label10_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[91]);
 	*/
+	/*
 	int label1_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[0]]);
 	int label2_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[1]]);
 	int label3_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[2]]);
@@ -274,25 +296,41 @@ void main()
 	int label8_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[7]]);
 	int label9_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[8]]);
 	int label10_n = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[9]]);
-
-	int placeh = 0;
-
+	*/
+	/*
 	for (int cycles = 0; cycles < 500; cycles++)
 	{
 		int index = rand() % 50;
 		for (int repeat = 0; repeat < max_rep; repeat++)
 		{
-			//trainingSetFeatures[nOfSamples][nOfFeatures] / trainingLabels[nOfSamples]
 			train(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index], trainingLabels[index]);
 		}
 		index = (rand() % 50) + 50;
 		for (int repeat = 0; repeat < max_rep; repeat++)
 		{
-			//trainingSetFeatures[nOfSamples][nOfFeatures] / trainingLabels[nOfSamples]
 			train(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index], trainingLabels[index]);
 		}
 	}
 	int placeholder1 = 0;
+	*/
+
+	//training completo
+
+	for (int cycles = 0; cycles < 100; cycles++)
+	{
+		//escludo gli ultimi 5 esempi: 45,46,47,48,49 & 95, 96, 97, 98, 99 e poi guardo la loro etichetta
+		for (int trainingIndex = 0; trainingIndex < 45; trainingIndex++)
+		{
+			for (int rep = 0; rep < max_rep; rep++)
+			{
+				train(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[trainingIndex], trainingLabels[trainingIndex]);
+				train(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[trainingIndex+50], trainingLabels[trainingIndex+50]);
+			}
+		}
+	}
+	
+	int placeholder1 = 0;
+
 	//test su dati veri (del training set)
 	//i primi 5 dovrebbero restituire etichetta 1
 	//i secondi 5 etichetta 0
@@ -309,6 +347,8 @@ void main()
 	int label9 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[59]);
 	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[91]);
 	*/
+
+	/*
 	int label1 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[0]]);
 	int label2 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[1]]);
 	int label3 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[2]]);
@@ -320,5 +360,32 @@ void main()
 	int label8 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[7]]);
 	int label9 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[8]]);
 	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[9]]);
+	*/
+
+	int label1 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[45]);
+	int label2 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[46]);
+	int label3 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[47]);
+	int label4 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[48]);
+	int label5 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[49]);
+
+	int label6 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[95]);
+	int label7 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[96]);
+	int label8 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[97]);
+	int label9 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[98]);
+	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[99]);
+
+	//pseudo cross validation, sarebbe meglio portare a funzione
+	int errors = 0;
+	for (int cycles = 0; cycles < 100; cycles++)
+	{
+		int test_index = rand() % 100;
+		int result_val = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[test_index]);
+		int result_label = trainingLabels[test_index];
+		if (result_val != trainingLabels[test_index])
+			errors++;
+	}
+	float networkWeights[nOfWeights] = { 0 };
+	float networkBiases[nOfBiases] = { 0 };
+	printNetwork(inputNodes, hiddenNodes, outputNodes, networkWeights, networkBiases);
 	int end1 = 0;
 }

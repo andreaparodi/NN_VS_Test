@@ -1,6 +1,16 @@
-﻿  main.c
+﻿  node.c
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(133): error C2059: errore di sintassi: ']'
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(224): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(240): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(241): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(246): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(255): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(256): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(261): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\node.c(272): warning C4013: 'rand' non definita. Verrà considerata come esterna che restituisce un int.
+  main.c
 c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(30): warning C4013: 'srand' non definita. Verrà considerata come esterna che restituisce un int.
-c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(248): warning C4013: 'rand' non definita. Verrà considerata come esterna che restituisce un int.
+c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(269): warning C4013: 'rand' non definita. Verrà considerata come esterna che restituisce un int.
 c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(121): warning C4305: 'inizializzazione': troncamento da 'double' a 'float'
 c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(122): warning C4305: 'inizializzazione': troncamento da 'double' a 'float'
 c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(123): warning C4305: 'inizializzazione': troncamento da 'double' a 'float'
@@ -102,5 +112,4 @@ c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(218)
 c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(219): warning C4305: 'inizializzazione': troncamento da 'double' a 'float'
 c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(220): warning C4305: 'inizializzazione': troncamento da 'double' a 'float'
 c:\users\andre\documenti\visual studio 2017\projects\nn_test\nn_test\main.c(230): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
-  NN_test.vcxproj -> C:\Users\andre\Documenti\Visual Studio 2017\Projects\NN_test\Debug\NN_test.exe
-  NN_test.vcxproj -> C:\Users\andre\Documenti\Visual Studio 2017\Projects\NN_test\Debug\NN_test.pdb (Partial PDB)
+  Generazione del codice in corso...

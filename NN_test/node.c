@@ -127,6 +127,41 @@ void randomSetupNodes(InputNode in[], HiddenNode hn[], OutputNode on[])
 	}
 }
 
+//nel caso in cui il training set occupi troppo spazio
+void loadTrainedNetwork(InputNode in[], HiddenNode hn[], OutputNode on[])
+{
+	in[0].weights[0]= 0.050364453;
+	in[0].weights[1] = 0.140978098;
+	in[0].weights[2] = -0.143539980,
+	in[0].weights[3] = -0.334958464;
+	in[0].weights[4] = -0.188528284;
+	in[0].weights[5] = 0.003182704;
+	in[0].weights[6] = 0.231281325;
+	in[0].weights[7] = 0.339421511;
+	in[0].weights[8] = -0.285962641;
+	in[0].weights[9] = 0.321480662;
+	in[0].weights[10] = -0.129770562;
+	in[0].weights[11] = -0.172099218;
+	in[0].weights[12] = -0.148472920;
+	in[0].weights[13] = 0.084917776;
+	in[0].weights[14] = -0.272993892;
+	in[0].weights[15] = -0.330143213;
+	in[0].weights[16] = -0.167630628;
+	in[0].weights[17] = -0.327026933;
+	in[0].weights[18] = -0.279903024;
+	in[0].weights[19] = 0.407478631;
+	in[0].weights[20] = -0.269944727;
+	in[0].weights[21] = -0.114695296;
+	in[0].weights[22] = -0.327084571;
+	in[0].weights[23] = -0.300511777;
+	in[0].weights[24] = -0.047700591;
+	in[0].weights[25] = -0.419359028;
+	in[0].weights[26] = -0.067375891;
+	in[0].weights[27] = -0.451978326;
+	in[0].weights[28] = -0.422831237;
+	in[0].weights[29] = -0.491236448;
+}
+
 //questa implementazione suppone che le etichette siano due e il nodo di uscita sia solo uno, (contrariamente a quanto fatto finora) che risulta tuttavia più semplice
 /*
 void train(InputNode in[], HiddenNode hn[], OutputNode on[], float inputFeatures[], int label) 
@@ -267,4 +302,74 @@ float generateRandomWeights()
 	result = result - 500;
 	result = result / 1000;
 	return result;
+}
+void printNetwork(InputNode in[], HiddenNode hn[], OutputNode on[], float weights[], float biases[])
+{
+	int index = 0;
+	//salvo i pesi tra nodi input e hidden
+	//weights contiene pesi salvati in questo ordine: tutti i pesi tra nodo 1 e hidden, tutti pesi tra nodo 2 e hid e così via
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		for (int h = 0; h < nOfHiddenNodes; h++)
+		{
+			weights[index] = in[i].weights[h];
+			index++;
+		}
+	}
+	//salvo pesi tra hidden e out
+	for (int h = 0; h < nOfHiddenNodes; h++)
+	{
+		for (int o = 0; o < nOfOutputNodes; o++)
+		{
+			weights[index] = hn[h].weights[o];
+			index++;
+		}
+	}
+	index = 0;
+	for (int h = 0; h < nOfHiddenNodes; h++)
+	{
+		biases[index] = hn[h].bias;
+		index++;
+	}
+	for (int o = 0; o < nOfOutputNodes; o++)
+	{
+		biases[index] = on[o].bias;
+		index++;
+	}
+	index = 0;
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		printf("#Nodo input ");
+		printf("%i", i);
+		printf(": \n");
+		for (int h = 0; h < nOfHiddenNodes; h++)
+		{
+			printf("%.9f\n", weights[index]);
+			index++;
+		}
+	}
+	for (int h = 0; h < nOfHiddenNodes; h++)
+	{
+		printf("#Nodo hidden ");
+		printf("%i", h);
+		printf(": \n");
+		for (int o = 0; o < nOfOutputNodes; o++)
+		{
+			printf("%.9f\n", weights[index]);
+			index++;
+		}
+	}
+	index = 0;
+	printf("#Bias nodi hidden:\n");
+	for (int h = 0; h < nOfHiddenNodes; h++)
+	{
+		printf("%.9f\n", biases[index]);
+		index++;
+	}
+	printf("#Bias nodi(o) output:\n");
+	for (int o = 0; o < nOfOutputNodes; o++)
+	{
+		printf("%.9f\n", biases[index]);
+		index++;
+	}
 }
