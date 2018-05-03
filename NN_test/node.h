@@ -43,6 +43,8 @@ void feedForward(InputNode in[], HiddenNode hn[], OutputNode on[]);
 //setup con pesi random nell'intervallo [-0.5; 0.5]
 void randomSetupNodes(InputNode in[], HiddenNode hn[], OutputNode on[]);
 void loadTrainedNetwork(InputNode in[], HiddenNode hn[], OutputNode on[]);
+void loadTrainedNetworkFromFile(InputNode in[], HiddenNode hn[], OutputNode on[]);
+
 void train(InputNode in[], HiddenNode hn[], OutputNode on[], float inputFeatures[], int label);
 int calculateOutput(InputNode in[], HiddenNode hn[], OutputNode on[], float inputFeatures[]);
 

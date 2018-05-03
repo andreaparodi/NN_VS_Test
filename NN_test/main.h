@@ -1,8 +1,11 @@
 #pragma once
+
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <math.h>
 #include <time.h>
-#include <stdio.h>
 #include "node.h"
+#include <stdio.h>
 
 //valore di inizializzazione per i pesi
 #define defaultWeight 1

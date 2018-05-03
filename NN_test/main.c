@@ -27,55 +27,13 @@ void main()
 	HiddenNode hiddenNodes[nOfHiddenNodes];
 	OutputNode outputNodes[nOfOutputNodes];
 	
+	loadTrainedNetworkFromFile(inputNodes, hiddenNodes, outputNodes);
+
 	srand(time(NULL));
 
 	//inizializzazione ai valori standard
 	randomSetupNodes(inputNodes, hiddenNodes, outputNodes);
 
-	//inizializzazione dei nodi, portare a funzione possibilmente
-	/*
-	for (int i = 0; i < nOfFeatures; i++)
-	{
-		inputNodes[i].value = defaultNodeValue;
-		for (int j = 0; j < nOfHiddenNodes; j++)
-		{
-			inputNodes[i].weights[j] = defaultWeight;
-		}
-	}
-	for (int i = 0; i < nOfHiddenNodes; i++)
-	{
-		hiddenNodes[i].value = defaultNodeValue;
-		for (int j = 0; j < nOfOutputNodes; j++)
-		{
-			hiddenNodes[i].weights[j] = defaultWeight;
-		}
-	}
-	for (int i = 0; i < nOfOutputNodes; i++)
-	{
-		outputNodes[i].value = defaultNodeValue;
-	}
-	*/
-
-	//test!
-
-	/*
-	inputNodes[0].value = 5;
-	inputNodes[6].value = 2;
-	inputNodes[3].value = 1;
-	inputNodes[4].value = 0;
-	inputNodes[1].value = -2;
-	inputNodes[5].value = 3;
-	inputNodes[9].value = 1;
-
-	inputNodes[0].weights[0] = 0;
-	inputNodes[0].weights[1] = 0;
-
-	inputNodes[1].weights[0] = 0;
-	inputNodes[3].weights[0] = -10;
-
-
-	feedForward(inputNodes, hiddenNodes, outputNodes);
-	*/
 	//test 2 bias
 	/*
 	inputNodes[0].value = 1;
@@ -116,6 +74,7 @@ void main()
 	int end = 1;
 	*/
 	
+	/*
 	float trainingSetFeatures[nOfSamples][nOfFeatures] =
 	{
 		{ 0.713942,        	0.556642,		1.818262,		-3.407425,		0.015400,        143.818665,      2.918958,        2.650967,        6.445556,        2.918958,        2.650967,        6.445556,        -0.327651,       -0.417206,       0.052923 },
@@ -220,6 +179,7 @@ void main()
 		{ 1.546358,        -0.453517,       6.143638,        4.246376,        2.898177,        136.485123,      8.862868,        6.091926,        13.967298,       8.862868,        6.091926,        13.967298,       -0.203902,       1.000000,        -0.040541 },
 	};
 	int trainingLabels[nOfSamples] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	
 	//training set normalization
 	float max_values[nOfFeatures] = { 0 };
 
@@ -241,8 +201,10 @@ void main()
 			trainingSetFeatures[sample][i] = trainingSetFeatures[sample][i] / max_values[i];
 		}
 	}
+	*/
+
 	//in preparazione alla eliminazione del training set cablato
-	/*
+	
 	float max_values[nOfFeatures] =
 	{
 		3.81052709,
@@ -261,7 +223,7 @@ void main()
 		1.00000000,
 		1.00000000 
 	};
-	*/
+	
 
 	int index[10] = {0};
 	for(int i=0;i<5;i++)
@@ -315,10 +277,11 @@ void main()
 	*/
 
 	//training completo
-
+	/*
 	for (int cycles = 0; cycles < 100; cycles++)
 	{
-		//escludo gli ultimi 5 esempi: 45,46,47,48,49 & 95, 96, 97, 98, 99 e poi guardo la loro etichetta
+		//trainingIndex < 45 per escludere gli ultimi 5 esempi: 45,46,47,48,49 & 95, 96, 97, 98, 99 e poi guardo la 
+		//loro etichetta (pseudo crossvalidation)
 		for (int trainingIndex = 0; trainingIndex < 45; trainingIndex++)
 		{
 			for (int rep = 0; rep < max_rep; rep++)
@@ -328,7 +291,8 @@ void main()
 			}
 		}
 	}
-	
+	*/
+
 	int placeholder1 = 0;
 
 	//test su dati veri (del training set)
@@ -362,6 +326,7 @@ void main()
 	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[index[9]]);
 	*/
 
+	/*
 	int label1 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[45]);
 	int label2 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[46]);
 	int label3 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[47]);
@@ -373,9 +338,27 @@ void main()
 	int label8 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[97]);
 	int label9 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[98]);
 	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[99]);
+	*/
+
+	//loadTrainedNetwork(inputNodes, hiddenNodes, outputNodes);
+	/*
+	int label1_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[45]);
+	int label2_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[46]);
+	int label3_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[47]);
+	int label4_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[48]);
+	int label5_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[49]);
+
+	int label6_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[95]);
+	int label7_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[96]);
+	int label8_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[97]);
+	int label9_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[98]);
+	int label10_tr = calculateOutput(inputNodes, hiddenNodes, outputNodes, trainingSetFeatures[99]);
+	*/
 
 	//pseudo cross validation, sarebbe meglio portare a funzione
+	/*
 	int errors = 0;
+	
 	for (int cycles = 0; cycles < 100; cycles++)
 	{
 		int test_index = rand() % 100;
@@ -384,6 +367,81 @@ void main()
 		if (result_val != trainingLabels[test_index])
 			errors++;
 	}
+	*/
+
+	loadTrainedNetworkFromFile(inputNodes, hiddenNodes, outputNodes);
+
+	float sample1[nOfFeatures] = { 0.125053,        	0.341492,		7.294523,		-13.451900,		0.559300,        143.446976,      1.577515,        1.930671,        8.666748,        1.577515,        1.930671,        8.666748,        0.543265,        0.913650,        -0.057672 };
+	float sample2[nOfFeatures] = { -0.644095,       	0.923739,		10.179117,		-14.338627,		3.524499,        143.384659,      1.523255,        1.970914,        7.138545,        1.523255,        1.970914,        7.138545,        -0.158627,       0.270767,        -0.045072 };
+	float sample3[nOfFeatures] = { 1.101353,        	0.021992,		-6.290104,		-14.307123,		6.177325,        143.037476,      1.807241,        2.130175,        3.182556,        1.807241,        2.130175,        3.182556,        0.344591,        0.206094,        0.085990 };
+	float sample4[nOfFeatures] = { 0.114669,        	0.683501,		6.835459,		-12.552573,     2.892925,        142.799835,      1.344595,        2.365141,        3.332313,        1.344595,        2.365141,        3.332313,        1.000000,        0.236408,        0.028017 };
+	float sample5[nOfFeatures] = { 0.093128,        	0.565800,		6.298102,		-13.206900,     3.826900,        143.004578,      1.338341,        2.352524,        4.239812,        1.338341,        2.352524,        4.239812,        1.000000,        0.416424,        -0.179170 };
+	
+	float sample6[nOfFeatures] = { 1.546358,        -0.453517,       6.143638,        4.246376,        2.898177,        136.485123,      8.862868,        6.091926,        13.967298,       8.862868,        6.091926,        13.967298,       -0.203902,       1.000000,        -0.040541 };
+	float sample7[nOfFeatures] = { 0.811068,        -0.385606,       9.317745,        2.456825,        -27.084578,      135.061340,      5.396933,        9.805336,        10.689906,       5.396933,        9.805336,        10.689906,       -1.000000,       -1.000000,       -0.219616 };
+	float sample8[nOfFeatures] = { -1.878563,       1.371710,        6.280881,        -46.015205,      7.802024,        131.658813,      9.342642,        6.425677,        10.366064,       9.342642,        6.425677,        10.366064,       -0.021496,       -0.813193,       0.549072 };
+	float sample9[nOfFeatures] = { -1.328628,       0.956501,        13.580758,       -3.270925,       20.398876,       138.524948,      8.162104,        4.903562,        13.670374,       8.162104,        4.903562,        13.670374,       -0.106058,       -0.365110,       0.040404 };
+	float sample10[nOfFeatures] = { 1.621686,        -0.146980,       12.605621,       25.225376,       -33.377403,      133.766312,      6.177016,        5.991683,        10.232461,       6.177016,        5.991683,        10.232461,       -0.197445,       -0.038451,       0.001128 };
+
+	
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample1[i] = sample1[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample2[i] = sample2[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample3[i] = sample3[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample4[i] = sample4[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample4[i] = sample4[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample5[i] = sample5[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample6[i] = sample6[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample7[i] = sample7[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample8[i] = sample8[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample9[i] = sample9[i] / max_values[i];
+	}
+	for (int i = 0; i < nOfFeatures; i++)
+	{
+		sample10[i] = sample10[i] / max_values[i];
+	}
+
+	int label1 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample1);
+	int label2 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample2);
+	int label3 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample3);
+	int label4 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample4);
+	int label5 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample5);
+
+	int label6 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample6);
+	int label7 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample7);
+	int label8 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample8);
+	int label9 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample9);
+	int label10 = calculateOutput(inputNodes, hiddenNodes, outputNodes, sample10);
+
+
 	float networkWeights[nOfWeights] = { 0 };
 	float networkBiases[nOfBiases] = { 0 };
 	printNetwork(inputNodes, hiddenNodes, outputNodes, networkWeights, networkBiases);
